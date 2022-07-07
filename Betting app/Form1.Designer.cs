@@ -104,6 +104,7 @@
             this.score1.Name = "score1";
             this.score1.Size = new System.Drawing.Size(36, 20);
             this.score1.TabIndex = 36;
+            this.score1.ValueChanged += new System.EventHandler(this.score1_ValueChanged);
             // 
             // score2
             // 
@@ -111,6 +112,7 @@
             this.score2.Name = "score2";
             this.score2.Size = new System.Drawing.Size(36, 20);
             this.score2.TabIndex = 37;
+            this.score2.ValueChanged += new System.EventHandler(this.score2_ValueChanged);
             // 
             // LockScore
             // 

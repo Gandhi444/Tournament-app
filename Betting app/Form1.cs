@@ -18,6 +18,8 @@ namespace Betting_app
         bool[] bet_locks;
         bool[] score_lock;
         int nr_players;
+        int[] scores1;
+        int[] scores2;
         Player[] players;
         private System.Data.DataSet dataSet;
         public void load_matches_and_players()
@@ -45,6 +47,8 @@ namespace Betting_app
             bet_locks = new bool[Matches.Length];
             score_lock=new bool[Matches.Length];
             players = new Player[nr_players];
+            scores1 = new int[Matches.Length];
+            scores2 = new int[Matches.Length];
             for (int i = 0; i < nr_players; i++)
             {
                 players[i] = new Player(Players_names[i]);
@@ -121,27 +125,33 @@ namespace Betting_app
                 {
                     nr_winners++;
                 }
-                else
+            }
+            if (nr_winners > 0)
+            {
+                foreach (Player p in players)
                 {
-                    foreach (CheckBox box in p.boxes)
+                    if (!p.boxes[Outcome].Checked)
                     {
-                        if (box.Checked)
+                        foreach (CheckBox box in p.boxes)
                         {
-                            pot++;
-                            p.Cash--;
-                            break;
+                            if (box.Checked)
+                            {
+                                pot++;
+                                p.Cash--;
+                                break;
+                            }
                         }
                     }
                 }
-
-            }
-            foreach (Player p in players)
-            {
-                if(p.boxes[Outcome].Checked)
+                foreach (Player p in players)
                 {
-                    p.Cash += pot / nr_winners;
+                    if (p.boxes[Outcome].Checked)
+                    {
+                        p.Cash += pot / nr_winners;
+                    }
                 }
             }
+
         }
         public void Update_table()
         {
@@ -204,8 +214,10 @@ namespace Betting_app
                     }
                 }
             }
-                score1.Enabled = !score_lock[MatchList.SelectedIndex];
-                score2.Enabled = !score_lock[MatchList.SelectedIndex];
+            score1.Value=scores1[MatchList.SelectedIndex];
+            score2.Value = scores2[MatchList.SelectedIndex];
+            score1.Enabled = !score_lock[MatchList.SelectedIndex];
+            score2.Enabled = !score_lock[MatchList.SelectedIndex];
         }
 
         private void Box_click_handler(object sender, EventArgs e)
@@ -250,21 +262,18 @@ namespace Betting_app
                 players[idx2].goals_lost += (int)score1.Value;
                 if (score > 0)
                 {
-                    players[idx1].Bilans = -score;
+                    
                     players[idx1].wins++;
                     players[idx1].points+=3;
-                    players[idx2].Bilans = score;
                     players[idx2].loses++;
-                    CalculateBet(2);
+                    CalculateBet(0);
                 }
                 else if(score < 0)
                 {
-                    players[idx1].Bilans = score;
                     players[idx1].loses++;
-                    players[idx2].Bilans = -score;
                     players[idx2].wins++;
                     players[idx2].points += 3;
-                    CalculateBet(0);
+                    CalculateBet(2);
                 }
                 else
                 {
@@ -274,6 +283,8 @@ namespace Betting_app
                     players[idx2].points += 1;
                     CalculateBet(1);
                 }
+                players[idx1].Bilans = players[idx1].goals_got - players[idx1].goals_lost;
+                players[idx2].Bilans = players[idx2].goals_got - players[idx2].goals_lost;
                 score1.Enabled = false;
                 score2.Enabled = false;
                 Update_table();
@@ -283,6 +294,16 @@ namespace Betting_app
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             dataGridView1.ClearSelection();
+        }
+
+        private void score1_ValueChanged(object sender, EventArgs e)
+        {
+            scores1[MatchList.SelectedIndex] = (int)score1.Value;
+        }
+
+        private void score2_ValueChanged(object sender, EventArgs e)
+        {
+            scores2[MatchList.SelectedIndex] = (int)score2.Value;
         }
     }
     public class Player
