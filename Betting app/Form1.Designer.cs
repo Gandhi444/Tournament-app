@@ -37,8 +37,10 @@
             this.score1 = new System.Windows.Forms.NumericUpDown();
             this.score2 = new System.Windows.Forms.NumericUpDown();
             this.LockScore = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.score1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.score2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // MatchList
@@ -120,12 +122,33 @@
             this.LockScore.UseVisualStyleBackColor = true;
             this.LockScore.Click += new System.EventHandler(this.button1_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(271, 12);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.Size = new System.Drawing.Size(482, 157);
+            this.dataGridView1.TabIndex = 39;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
             // FIR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(787, 451);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.LockScore);
             this.Controls.Add(this.score2);
             this.Controls.Add(this.score1);
@@ -143,6 +166,7 @@
             this.Load += new System.EventHandler(this.FIR_Load);
             ((System.ComponentModel.ISupportInitialize)(this.score1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.score2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,6 +182,7 @@
         private System.Windows.Forms.NumericUpDown score1;
         private System.Windows.Forms.NumericUpDown score2;
         private System.Windows.Forms.Button LockScore;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
