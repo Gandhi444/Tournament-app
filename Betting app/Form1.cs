@@ -246,22 +246,22 @@ namespace Betting_app
                 }
                 players[idx1].goals_got += (int)score1.Value;
                 players[idx2].goals_got += (int)score2.Value;
-                players[idx1].goals_lost -= (int)score2.Value;
-                players[idx2].goals_lost -= (int)score1.Value;
-                if (score < 0)
+                players[idx1].goals_lost += (int)score2.Value;
+                players[idx2].goals_lost += (int)score1.Value;
+                if (score > 0)
                 {
-                    players[idx1].Bilans = score;
+                    players[idx1].Bilans = -score;
                     players[idx1].wins++;
                     players[idx1].points+=3;
-                    players[idx2].Bilans = -score;
+                    players[idx2].Bilans = score;
                     players[idx2].loses++;
                     CalculateBet(2);
                 }
-                else if(score > 0)
+                else if(score < 0)
                 {
-                    players[idx1].Bilans = -score;
+                    players[idx1].Bilans = score;
                     players[idx1].loses++;
-                    players[idx2].Bilans = score;
+                    players[idx2].Bilans = -score;
                     players[idx2].wins++;
                     players[idx2].points += 3;
                     CalculateBet(0);
